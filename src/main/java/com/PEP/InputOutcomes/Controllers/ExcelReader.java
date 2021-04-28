@@ -1,5 +1,6 @@
 package com.PEP.InputOutcomes.Controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -19,16 +20,13 @@ public class ExcelReader {
 		Iterator<Row> rowIterator = sheet.iterator();
 		Client toInput = new Client();
 		
-//		SeleniumController selenium = new SeleniumController();
-//		selenium.InputWebstie(toInput);
-		
 		while(rowIterator.hasNext()){
 			row = (XSSFRow) rowIterator.next();
 			Iterator<Cell> cellIterator = row.cellIterator();
 			if(row.getRowNum() == 0) {
 				continue;
 			}
-			if(row.getRowNum() > 1) {
+			if(row.getRowNum() != 13) {
 				continue;
 			}
 			toInput.setLast_name(row.getCell(0));
@@ -85,7 +83,10 @@ public class ExcelReader {
 			toInput.setEmployment_hours(row.getCell(51));
 			toInput.setStatus(row.getCell(52));
 			
-//			System.out.println(toInput.getEnrollment_date().toString());
+//			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+//			String enrollmentDateFormatted = dateFormat.format(toInput.getEnrollment_date().getDateCellValue());
+//
+//			System.out.println("start" + enrollmentDateFormatted + "end");
 			
 			SeleniumController selenium = new SeleniumController();
 			selenium.InputWebstie(toInput);
